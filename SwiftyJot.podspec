@@ -30,12 +30,12 @@ s.author           = { 'DavidLari' => 'David@DavidLariStudios.com' }
 s.source           = { :git => 'https://github.com/DavidLari/SwiftyJot.git', :tag => s.version.to_s }
 s.social_media_url = 'https://twitter.com/DavidLari'
 
-s.ios.deployment_target = '9.3'
+s.ios.deployment_target = '9.0'
 
 s.source_files = 'SwiftyJot/Classes/**/*'
 
 s.resource_bundles = {
-'SwiftyJot' => ['SwiftyJot/Resources/**/*.xcassets']
+'SwiftyJot' => ['SwiftyJot/Assets/**/*.xcassets']
 }
 
 # s.public_header_files = 'Pod/Classes/**/*.h'
