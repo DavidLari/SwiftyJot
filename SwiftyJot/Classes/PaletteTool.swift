@@ -32,15 +32,11 @@ class PaletteTool: UIView {
             button.layer.cornerRadius = 8
             button.layer.borderWidth = 1
             button.layer.borderColor = UIColor.black.cgColor
-
             button.addTarget(self, action: #selector(paletteButtonTapped(sender:)), for: .touchUpInside)
-
             addSubview(button)
-
 
             startY += 38
         }
-
     }
 
     @objc private func paletteButtonTapped(sender: UIButton) {
@@ -115,7 +111,10 @@ class PaletteTool: UIView {
     }
 
     @objc func valueChanged() {
-        newColor = UIColor(red: CGFloat(sliderR.value / 255), green: CGFloat(sliderG.value / 255), blue: CGFloat(sliderB.value / 255), alpha: CGFloat(sliderA.value / 255))
+        newColor = UIColor(red: CGFloat(sliderR.value / 255),
+                           green: CGFloat(sliderG.value / 255),
+                           blue: CGFloat(sliderB.value / 255),
+                           alpha: CGFloat(sliderA.value / 255))
         result.backgroundColor = newColor
     }
 
