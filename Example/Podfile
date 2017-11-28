@@ -1,0 +1,11 @@
+use_frameworks!
+
+target 'SwiftyJot_Example' do
+  pod 'SwiftyJot', :path => '../'
+
+  target 'SwiftyJot_Tests' do
+    inherit! :search_paths
+
+    
+  end
+end
