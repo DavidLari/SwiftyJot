@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="JPp-oF-rJw">
+    <device id="retina5_5" orientation="landscape">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Main View Controller-->
+        <scene sceneID="uWn-8B-lrg">
+            <objects>
+                <viewController id="gJo-kB-eXC" customClass="MainViewController" customModule="AnnotateImage" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="9EZ-TS-fQ5">
+                        <rect key="frame" x="0.0" y="0.0" width="736" height="414"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DUP-og-xoQ">
+                                <rect key="frame" x="336.66666666666669" y="364" width="63" height="30"/>
+                                <state key="normal" title="Annotate"/>
+                                <connections>
+                                    <action selector="buttonTapped" destination="gJo-kB-eXC" eventType="touchUpInside" id="KdB-im-UvC"/>
+                                </connections>
+                            </button>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ygL-VK-Td1">
+                                <rect key="frame" x="-8" y="32" width="744" height="324"/>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="ygL-VK-Td1" secondAttribute="trailing" id="LsD-VU-5pi"/>
+                            <constraint firstAttribute="bottom" secondItem="DUP-og-xoQ" secondAttribute="bottom" constant="20" symbolic="YES" id="PFN-1c-Xk8"/>
+                            <constraint firstItem="DUP-og-xoQ" firstAttribute="top" secondItem="ygL-VK-Td1" secondAttribute="bottom" constant="8" symbolic="YES" id="cgk-JX-1pf"/>
+                            <constraint firstItem="ygL-VK-Td1" firstAttribute="top" secondItem="pWq-PS-dhA" secondAttribute="top" id="iVc-jT-CEE"/>
+                            <constraint firstItem="ygL-VK-Td1" firstAttribute="leading" secondItem="9EZ-TS-fQ5" secondAttribute="leadingMargin" constant="-28" id="iqh-IH-qLq"/>
+                            <constraint firstItem="DUP-og-xoQ" firstAttribute="centerX" secondItem="9EZ-TS-fQ5" secondAttribute="centerX" id="kra-Nc-TxN"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="pWq-PS-dhA"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="S4E-1d-ety"/>
+                    <connections>
+                        <outlet property="imageView" destination="ygL-VK-Td1" id="Jtp-NQ-ODr"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="HUn-lW-Kbw" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-263.768115942029" y="136.95652173913044"/>
+        </scene>
+        <!--Tap An Image-->
+        <scene sceneID="nrV-pe-1Eo">
+            <objects>
+                <viewController id="gFG-vV-mE1" customClass="InitialViewController" customModule="AnnotateImage" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Uk0-H4-k32">
+                        <rect key="frame" x="0.0" y="0.0" width="736" height="414"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Erv-z3-YPh">
+                                <rect key="frame" x="0.0" y="32" width="736" height="382"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Iop-Qu-Ygp">
+                                        <rect key="frame" x="0.0" y="0.0" width="122.66666666666667" height="382"/>
+                                        <state key="normal" title="Button" image="annie-spratt-230186.jpg"/>
+                                        <connections>
+                                            <action selector="buttonTapped:" destination="gFG-vV-mE1" eventType="touchUpInside" id="reO-XS-MKX"/>
+                                            <segue destination="gJo-kB-eXC" kind="show" id="Av3-9Y-thP"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eSq-nc-QeZ">
+                                        <rect key="frame" x="122.66666666666666" y="0.0" width="122.66666666666666" height="382"/>
+                                        <state key="normal" title="Button" image="cameron-kirby-49817.jpg"/>
+                                        <connections>
+                                            <action selector="buttonTapped:" destination="gFG-vV-mE1" eventType="touchUpInside" id="ijO-Ky-1MU"/>
+                                            <segue destination="gJo-kB-eXC" kind="show" id="Dbw-44-9vK"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yk1-JF-bLM">
+                                        <rect key="frame" x="245.33333333333334" y="0.0" width="122.66666666666666" height="382"/>
+                                        <state key="normal" title="Button" image="david-chalifoux-37592.jpg"/>
+                                        <connections>
+                                            <action selector="buttonTapped:" destination="gFG-vV-mE1" eventType="touchUpInside" id="Rjn-Nx-hNu"/>
+                                            <segue destination="gJo-kB-eXC" kind="show" id="4Mz-47-i1E"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TA6-oQ-tqZ">
+                                        <rect key="frame" x="368" y="0.0" width="122.66666666666669" height="382"/>
+                                        <state key="normal" title="Button" image="dan-freeman-401296.jpg"/>
+                                        <connections>
+                                            <action selector="buttonTapped:" destination="gFG-vV-mE1" eventType="touchUpInside" id="MBc-1E-gnS"/>
+                                            <segue destination="gJo-kB-eXC" kind="show" id="8KQ-AV-yYK"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jNS-Pm-BlG">
+                                        <rect key="frame" x="490.66666666666669" y="0.0" width="122.66666666666669" height="382"/>
+                                        <state key="normal" title="Button" image="joe-desousa-327235.jpg"/>
+                                        <connections>
+                                            <action selector="buttonTapped:" destination="gFG-vV-mE1" eventType="touchUpInside" id="6qX-BJ-kqh"/>
+                                            <segue destination="gJo-kB-eXC" kind="show" id="ic4-LD-YWw"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Lhb-IG-FSn">
+                                        <rect key="frame" x="613.33333333333337" y="0.0" width="122.66666666666663" height="382"/>
+                                        <state key="normal" title="Button" image="seth-doyle-221232.jpg"/>
+                                        <connections>
+                                            <action selector="buttonTapped:" destination="gFG-vV-mE1" eventType="touchUpInside" id="oQv-XY-o5S"/>
+                                            <segue destination="gJo-kB-eXC" kind="show" id="Yuh-hp-Dhs"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="Lhb-IG-FSn" firstAttribute="height" secondItem="Iop-Qu-Ygp" secondAttribute="height" id="3sq-JZ-bIU"/>
+                                    <constraint firstItem="eSq-nc-QeZ" firstAttribute="width" secondItem="Iop-Qu-Ygp" secondAttribute="width" id="BeU-9h-aib"/>
+                                    <constraint firstItem="yk1-JF-bLM" firstAttribute="width" secondItem="Iop-Qu-Ygp" secondAttribute="width" id="Ini-t9-wGV"/>
+                                    <constraint firstItem="jNS-Pm-BlG" firstAttribute="height" secondItem="Iop-Qu-Ygp" secondAttribute="height" id="JGw-iZ-vRn"/>
+                                    <constraint firstItem="TA6-oQ-tqZ" firstAttribute="width" secondItem="Iop-Qu-Ygp" secondAttribute="width" id="KPp-q9-Kci"/>
+                                    <constraint firstItem="yk1-JF-bLM" firstAttribute="height" secondItem="Iop-Qu-Ygp" secondAttribute="height" id="NgL-3h-X6t"/>
+                                    <constraint firstItem="TA6-oQ-tqZ" firstAttribute="height" secondItem="Iop-Qu-Ygp" secondAttribute="height" id="b20-Tw-TFE"/>
+                                    <constraint firstItem="eSq-nc-QeZ" firstAttribute="height" secondItem="Iop-Qu-Ygp" secondAttribute="height" id="fyI-bH-ZB6"/>
+                                    <constraint firstItem="jNS-Pm-BlG" firstAttribute="width" secondItem="Iop-Qu-Ygp" secondAttribute="width" id="mut-h6-K0g"/>
+                                    <constraint firstItem="Lhb-IG-FSn" firstAttribute="width" secondItem="Iop-Qu-Ygp" secondAttribute="width" id="xPh-Ua-olW"/>
+                                </constraints>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="BeU-9h-aib"/>
+                                        <exclude reference="Ini-t9-wGV"/>
+                                        <exclude reference="KPp-q9-Kci"/>
+                                        <exclude reference="mut-h6-K0g"/>
+                                        <exclude reference="xPh-Ua-olW"/>
+                                    </mask>
+                                </variation>
+                                <variation key="heightClass=compact" axis="horizontal">
+                                    <mask key="constraints">
+                                        <include reference="BeU-9h-aib"/>
+                                        <exclude reference="fyI-bH-ZB6"/>
+                                        <include reference="Ini-t9-wGV"/>
+                                        <exclude reference="NgL-3h-X6t"/>
+                                        <include reference="KPp-q9-Kci"/>
+                                        <exclude reference="b20-Tw-TFE"/>
+                                        <exclude reference="JGw-iZ-vRn"/>
+                                        <include reference="mut-h6-K0g"/>
+                                        <exclude reference="3sq-JZ-bIU"/>
+                                        <include reference="xPh-Ua-olW"/>
+                                    </mask>
+                                </variation>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="Erv-z3-YPh" firstAttribute="leading" secondItem="Ya5-um-iRw" secondAttribute="leading" id="8aC-i1-9X7"/>
+                            <constraint firstItem="Ya5-um-iRw" firstAttribute="trailing" secondItem="Erv-z3-YPh" secondAttribute="trailing" id="KzU-HP-48S"/>
+                            <constraint firstItem="Erv-z3-YPh" firstAttribute="top" secondItem="Ya5-um-iRw" secondAttribute="top" id="v8p-bG-1r8"/>
+                            <constraint firstItem="Ya5-um-iRw" firstAttribute="bottom" secondItem="Erv-z3-YPh" secondAttribute="bottom" id="zdL-WZ-hgp"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="Ya5-um-iRw"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Tap An Image" id="lC6-Cr-W0a"/>
+                    <connections>
+                        <outletCollection property="imageButtons" destination="yk1-JF-bLM" collectionClass="NSMutableArray" id="J9a-4i-Elf"/>
+                        <outletCollection property="imageButtons" destination="Iop-Qu-Ygp" collectionClass="NSMutableArray" id="emf-Ih-fCM"/>
+                        <outletCollection property="imageButtons" destination="eSq-nc-QeZ" collectionClass="NSMutableArray" id="aaU-f3-wxA"/>
+                        <outletCollection property="imageButtons" destination="yk1-JF-bLM" collectionClass="NSMutableArray" id="TQW-Os-flB"/>
+                        <outletCollection property="imageButtons" destination="TA6-oQ-tqZ" collectionClass="NSMutableArray" id="jpv-OM-IVt"/>
+                        <outletCollection property="imageButtons" destination="jNS-Pm-BlG" collectionClass="NSMutableArray" id="kki-yp-fK3"/>
+                        <outletCollection property="imageButtons" destination="Lhb-IG-FSn" collectionClass="NSMutableArray" id="nTq-tL-4jJ"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="PYA-3F-GT7" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1242.0289855072465" y="136.95652173913044"/>
+        </scene>
+        <!--SwiftyJot Example-->
+        <scene sceneID="1uA-aH-oBS">
+            <objects>
+                <navigationController title="SwiftyJot Example" automaticallyAdjustsScrollViewInsets="NO" id="JPp-oF-rJw" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="GsU-Nb-VV8">
+                        <rect key="frame" x="0.0" y="0.0" width="736" height="32"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="gFG-vV-mE1" kind="relationship" relationship="rootViewController" id="Wqq-lu-n6x"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="phD-z1-egh" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-2084" y="137"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="annie-spratt-230186.jpg" width="2000" height="3280"/>
+        <image name="cameron-kirby-49817.jpg" width="6000" height="3376"/>
+        <image name="dan-freeman-401296.jpg" width="4844" height="3229"/>
+        <image name="david-chalifoux-37592.jpg" width="5392" height="1901"/>
+        <image name="joe-desousa-327235.jpg" width="1397" height="3918"/>
+        <image name="seth-doyle-221232.jpg" width="2955" height="2955"/>
+    </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="Dbw-44-9vK"/>
+    </inferredMetricsTieBreakers>
+</document>
