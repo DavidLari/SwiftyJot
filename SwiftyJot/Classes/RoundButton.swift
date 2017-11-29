@@ -11,6 +11,17 @@ class RoundButton: UIButton {
 
     var shadowLayer: CAShapeLayer!
 
+    var buttonBackgroundColor: UIColor? = UIColor.white
+    override var backgroundColor: UIColor? {
+        set {
+            buttonBackgroundColor = newValue
+        }
+
+        get {
+            return buttonBackgroundColor
+        }
+    }
+
     override func layoutSubviews() {
         super.layoutSubviews()
 
@@ -21,12 +32,12 @@ class RoundButton: UIButton {
         if shadowLayer == nil {
             shadowLayer = CAShapeLayer()
             shadowLayer.path = UIBezierPath(roundedRect: bounds, cornerRadius: self.layer.cornerRadius).cgPath
-            shadowLayer.fillColor = UIColor.white.cgColor
+            shadowLayer.fillColor = buttonBackgroundColor?.cgColor ?? UIColor.white.cgColor
 
             shadowLayer.shadowColor = UIColor.darkGray.cgColor
             shadowLayer.shadowPath = shadowLayer.path
             shadowLayer.shadowOffset = CGSize(width: 2.0, height: 2.0)
-            shadowLayer.shadowOpacity = 0.8
+            shadowLayer.shadowOpacity = 0.7
             shadowLayer.shadowRadius = 2
 
             layer.insertSublayer(shadowLayer, at: 0)

@@ -21,8 +21,11 @@ class MainViewController: UIViewController {
         config.backgroundColor = .gray
         config.title = "Example"
         config.tintColor = .darkGray
+        config.buttonBackgroundColor = .white
         config.brushColor = .red
         config.brushSize = 8.0
+        config.showMenuButton = true
+        config.showPaletteButton = true
         swiftyJot.config = config
 
         swiftyJot.present(sourceImageView: imageView, presentingViewController: self)

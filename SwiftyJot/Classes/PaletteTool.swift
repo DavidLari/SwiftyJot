@@ -80,7 +80,7 @@ class PaletteTool: UIView {
         addSubview(result)
 
         connector.frame = CGRect(x: frame.width - 30, y: frame.height - 2, width: 10, height: 8)
-        connector.backgroundColor = .white
+        connector.backgroundColor = linkedButton.backgroundColor
         addSubview(connector)
         bringSubview(toFront: connector)
 

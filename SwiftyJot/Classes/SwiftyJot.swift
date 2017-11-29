@@ -22,6 +22,7 @@ public class SwiftyJot {
         public var backgroundColor = UIColor.black
         public var title: String?
         public var tintColor = UIColor.blue
+        public var buttonBackgroundColor = UIColor.white
         public var isButtonShadowVisible = true
         public var brushColor = UIColor.red
         public var brushSize: CGFloat = 8

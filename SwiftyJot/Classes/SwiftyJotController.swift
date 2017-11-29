@@ -219,7 +219,9 @@ class SwiftyJotController: UIViewController {
                 self.brushButton.center = self.menuButton.center
                 self.undoButton.center = self.menuButton.center
                 self.redoButton.center = self.menuButton.center
-                self.paletteButton.center = self.menuButton.center
+                if self.config.showPaletteButton {
+                    self.paletteButton.center = self.menuButton.center
+                }
             }
         } else {
             UIView.animate(withDuration: 0.3) {
@@ -229,7 +231,9 @@ class SwiftyJotController: UIViewController {
                 self.undoButton.center = CGPoint(x: x + self.menuItemSpacing * 2, y: y)
                 self.redoButton.center = CGPoint(x: x + self.menuItemSpacing * 3, y: y)
                 self.brushButton.center = CGPoint(x: x + self.menuItemSpacing * 4, y: y)
-                self.paletteButton.center = CGPoint(x: x + self.menuItemSpacing * 5, y: y)
+                if self.config.showPaletteButton {
+                    self.paletteButton.center = CGPoint(x: x + self.menuItemSpacing * 5, y: y)
+                }
             }
         }
         isMenuOpen = !isMenuOpen
@@ -329,13 +333,12 @@ class SwiftyJotController: UIViewController {
         drawView.removeFromSuperview()
 
         let ratio = image.size.width / image.size.height
-        print("image size is: \(image.size). ratio: \(ratio)")
-        print("container size is \(containerView.frame.size)")
+
         let containerRatio = containerView.frame.size.width / containerView.frame.size.height
-        print("container ratio \(containerRatio)")
+
         let oldWidth = imageView.frame.width
         if containerView.frame.width > containerView.frame.height {
-            print("wider than tall")
+            // wider than tall
             if ratio < containerRatio {
                 let newHeight = containerView.frame.height
                 let newWidth = containerView.frame.height * ratio
@@ -350,7 +353,7 @@ class SwiftyJotController: UIViewController {
                 imageView.frame = CGRect(x: originX, y: originY, width: newWidth, height: newHeight)
             }
         } else {
-            print("taller than wide")
+            // taller than wide
             if ratio < containerRatio {
                 let newWidth = containerView.frame.height * ratio
                 let newHeight = containerView.frame.height
@@ -378,7 +381,6 @@ class SwiftyJotController: UIViewController {
         drawView.frame = drawFrame
         containerView.addSubview(imageView)
         containerView.addSubview(drawView)
-        print("imageView size \(imageView.frame.size).")
         drawLines()
     }
 
@@ -389,6 +391,7 @@ class SwiftyJotController: UIViewController {
         let image = UIImage(named: name, in: bundle, compatibleWith: nil)
         button.setImage(image?.withRenderingMode(.alwaysTemplate), for: .normal)
         button.tintColor = config.tintColor
+        button.backgroundColor = config.buttonBackgroundColor
         return button
     }
 
@@ -406,7 +409,7 @@ class SwiftyJotController: UIViewController {
 
 
         if #available(iOS 11, *) {
-            print("safe area")
+
             let guide = view.safeAreaLayoutGuide
             NSLayoutConstraint.activate([
                 containerView.leftAnchor.constraint(equalTo: guide.leftAnchor),
@@ -416,7 +419,7 @@ class SwiftyJotController: UIViewController {
                 ])
 
         } else {
-            print("standard area")
+
             let standardSpacing: CGFloat = 8.0
             NSLayoutConstraint.activate([
                 containerView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
@@ -424,6 +427,56 @@ class SwiftyJotController: UIViewController {
                 containerView.topAnchor.constraint(equalTo: topLayoutGuide.bottomAnchor, constant: standardSpacing),
                 bottomLayoutGuide.topAnchor.constraint(equalTo: containerView.bottomAnchor, constant: standardSpacing)
                 ])
+        }
+    }
+
+    fileprivate func setupMenu() {
+
+        guard config.showMenuButton else { return }
+
+        let screenSize: CGRect = UIScreen.main.bounds
+        let y = screenSize.height - 75
+        menuButton = makeButton(frame: CGRect(x: 20, y: y, width: 50, height: 50), imageName: "hamburger")
+        menuButton.addTarget(self, action: #selector(toggleMenu), for: .touchUpInside)
+        view.addSubview(menuButton)
+
+        clearButton = makeButton(frame: menuButton.frame, imageName: "trash")
+        clearButton.addTarget(self, action: #selector(clear), for: .touchUpInside)
+        view.addSubview(clearButton)
+
+        undoButton = makeButton(frame: menuButton.frame, imageName: "undo")
+        undoButton.addTarget(self, action: #selector(undo), for: .touchUpInside)
+        view.addSubview(undoButton)
+
+        redoButton = makeButton(frame: menuButton.frame, imageName: "redo")
+        redoButton.addTarget(self, action: #selector(redo), for: .touchUpInside)
+        view.addSubview(redoButton)
+
+        brushButton = makeButton(frame: menuButton.frame, imageName: "brush")
+        brushButton.addTarget(self, action: #selector(toggleResizeBrushView), for: .touchUpInside)
+        view.addSubview(brushButton)
+
+        if config.showPaletteButton {
+            paletteButton = makeButton(frame: menuButton.frame, imageName: "palette")
+            paletteButton.addTarget(self, action: #selector(togglePaletteTool), for: .touchUpInside)
+            view.addSubview(paletteButton)
+        }
+        view.bringSubview(toFront: menuButton)
+    }
+
+    fileprivate func moveMenuButtonsOnTransition(to size: CGSize) {
+
+        guard config.showMenuButton else { return }
+
+        let y = size.height - 75
+        let diameter = menuButton.frame.size.width
+        menuButton.frame = CGRect(x: 20, y: y, width: diameter, height: diameter)
+        clearButton.frame = CGRect(x: clearButton.frame.origin.x, y: y, width: diameter, height: diameter)
+        undoButton.frame = CGRect(x: undoButton.frame.origin.x, y: y, width: diameter, height: diameter)
+        redoButton.frame = CGRect(x: redoButton.frame.origin.x, y: y, width: diameter, height: diameter)
+        brushButton.frame = CGRect(x: brushButton.frame.origin.x, y: y, width: diameter, height: diameter)
+        if config.showPaletteButton {
+            paletteButton.frame = CGRect(x: paletteButton.frame.origin.x, y: y, width: diameter, height: diameter)
         }
     }
 
@@ -439,54 +492,17 @@ class SwiftyJotController: UIViewController {
         imageView.image = originalImage
         imageView.backgroundColor = .black
 
-        let screenSize: CGRect = UIScreen.main.bounds
-        let y = screenSize.height - 75
-        menuButton = makeButton(frame: CGRect(x: 20, y: y, width: 50, height: 50), imageName: "hamburger")
-        menuButton.addTarget(self, action: #selector(toggleMenu), for: .touchUpInside)
-        view.addSubview(menuButton)
+        setupMenu()
 
-        clearButton = makeButton(frame: menuButton.frame, imageName: "trash")
-        clearButton.addTarget(self, action: #selector(clear), for: .touchUpInside)
-
-        undoButton = makeButton(frame: menuButton.frame, imageName: "undo")
-        undoButton.addTarget(self, action: #selector(undo), for: .touchUpInside)
-
-        redoButton = makeButton(frame: menuButton.frame, imageName: "redo")
-        redoButton.addTarget(self, action: #selector(redo), for: .touchUpInside)
-
-        brushButton = makeButton(frame: menuButton.frame, imageName: "brush")
-        brushButton.addTarget(self, action: #selector(toggleResizeBrushView), for: .touchUpInside)
-
-        paletteButton = makeButton(frame: menuButton.frame, imageName: "palette")
-        paletteButton.addTarget(self, action: #selector(togglePaletteTool), for: .touchUpInside)
-
-        view.addSubview(clearButton)
-        view.addSubview(brushButton)
-        view.addSubview(undoButton)
-        view.addSubview(redoButton)
-        view.addSubview(paletteButton)
-        view.bringSubview(toFront: menuButton)
-
-        print("original size: \(originalImage!.size) and scale: \(originalImage!.scale)")
-
-        let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(save))
-        navigationItem.rightBarButtonItem = doneButton
+        let saveButton = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(save))
+        navigationItem.rightBarButtonItem = saveButton
     }
 
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
 
-        let y = size.height - 75
-        let diameter = menuButton.frame.size.width
-        menuButton.frame = CGRect(x: 20, y: y, width: diameter, height: diameter)
-        clearButton.frame = CGRect(x: clearButton.frame.origin.x, y: y, width: diameter, height: diameter)
-        undoButton.frame = CGRect(x: undoButton.frame.origin.x, y: y, width: diameter, height: diameter)
-        redoButton.frame = CGRect(x: redoButton.frame.origin.x, y: y, width: diameter, height: diameter)
-        brushButton.frame = CGRect(x: brushButton.frame.origin.x, y: y, width: diameter, height: diameter)
-        paletteButton.frame = CGRect(x: paletteButton.frame.origin.x, y: y, width: diameter, height: diameter)
-
+        moveMenuButtonsOnTransition(to: size)
         isOrientationChanged = true
-        print("orientation changed")
         view.setNeedsLayout()
     }
 
