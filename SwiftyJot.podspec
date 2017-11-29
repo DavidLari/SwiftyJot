@@ -37,6 +37,7 @@ s.source_files = 'SwiftyJot/Classes/**/*'
 s.resource_bundles = {
 'SwiftyJot' => ['SwiftyJot/Assets/**/*.xcassets']
 }
+s.resources = 'SwiftyJot/Assets/**/*.xcassets'
 
 # s.public_header_files = 'Pod/Classes/**/*.h'
 s.frameworks = 'UIKit'
