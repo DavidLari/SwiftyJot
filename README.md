@@ -9,7 +9,7 @@
 
 Give your images the finger with SwiftyJot! Lightweight library lets users mark up a photo/image.
 
-- Options to allow user to select color using built-in palette too.
+- Options to allow user to select color using built-in palette.
 - User can select brush size.
 - Multi-level undo
 - One level redo.
@@ -33,7 +33,7 @@ Royalty free example images from [Unsplash](https://unsplash.com)
 
 ## Requirements
 
-Works on iOS 9.3 and later. Xcode 9.x and later. Swift 4.
+Works on iOS 9.0 and later. Xcode 9.x and later. Swift 4.
 
 ## Installation
 
@@ -66,6 +66,8 @@ var config = SwiftyJot.Config()
 config.backgroundColor = .gray
 config.title = "Example"
 config.tintColor = .darkGray
+config.brushColor = .black
+config.brushSize = 8.0
 swiftyJot.config = config
 
 swiftyJot.present(sourceImageView: imageView, presentingViewController: self)

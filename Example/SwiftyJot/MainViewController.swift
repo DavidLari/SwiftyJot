@@ -1,6 +1,6 @@
 //
 //  MainViewController.swift
-//  AnnotateImage
+//  SwiftyJot Example
 //
 //  Created by David Lari on 11/23/17.
 //  Copyright © 2017 David Lari. All rights reserved.
@@ -12,7 +12,6 @@ class MainViewController: UIViewController {
 
     var image: UIImage?
 
-
     @IBOutlet weak var imageView: UIImageView!
 
     @IBAction func buttonTapped() {
@@ -22,6 +21,8 @@ class MainViewController: UIViewController {
         config.backgroundColor = .gray
         config.title = "Example"
         config.tintColor = .darkGray
+        config.brushColor = .red
+        config.brushSize = 8.0
         swiftyJot.config = config
 
         swiftyJot.present(sourceImageView: imageView, presentingViewController: self)

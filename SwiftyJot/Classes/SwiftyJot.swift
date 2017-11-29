@@ -23,6 +23,10 @@ public class SwiftyJot {
         public var title: String?
         public var tintColor = UIColor.blue
         public var isButtonShadowVisible = true
+        public var brushColor = UIColor.red
+        public var brushSize: CGFloat = 8
+        public var showMenuButton = true
+        public var showPaletteButton = true
     }
 
     public var config = Config()

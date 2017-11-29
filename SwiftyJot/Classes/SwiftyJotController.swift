@@ -396,6 +396,8 @@ class SwiftyJotController: UIViewController {
         // Config items
         view.backgroundColor = config.backgroundColor
         title = config.title
+        color = config.brushColor
+        brushSize = config.brushSize
 
         // layout
         containerView.translatesAutoresizingMaskIntoConstraints = false
