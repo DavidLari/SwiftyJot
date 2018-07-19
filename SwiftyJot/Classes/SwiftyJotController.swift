@@ -12,7 +12,6 @@ class SwiftyJotController: UIViewController {
     //TODO: - List
     // shadow visible on buttons
     // more config stuff
-
     /// The image view on the calling view controller
     public var sourceImageView: UIImageView?
     private var originalImage: UIImage?
@@ -69,6 +68,8 @@ class SwiftyJotController: UIViewController {
     private var isPaletteToolOpen = false
     private var isOrientationChanged = true
     private var discardedLines: [Line]?
+
+	weak var delegate: SwiftyJotDelegate?
 
     @objc func clear() {
         drawView.image = UIImage()
@@ -203,6 +204,8 @@ class SwiftyJotController: UIViewController {
         } else {
             dismiss(animated: true, completion: nil)
         }
+
+		delegate?.didSaveImage(sender: self.config.senderName, image: sourceImageView.image!)
     }
 
     @objc func toggleMenu() {
@@ -280,20 +283,26 @@ class SwiftyJotController: UIViewController {
     }
 
     func drawLine(line: Line) {
-        UIGraphicsBeginImageContext(drawView.frame.size)
+        UIGraphicsBeginImageContextWithOptions(drawView.frame.size, false, 0)
         let context = UIGraphicsGetCurrentContext()
 
         drawView.image?.draw(in: CGRect(x: 0, y: 0, width: drawView.frame.size.width, height: drawView.frame.size.height))
 
-        context?.beginPath()
+//        context?.beginPath()
         context?.setLineCap(CGLineCap.round)
         context?.setLineWidth(line.brushSize)
         context?.setStrokeColor(line.color.cgColor)
         context?.setBlendMode(CGBlendMode.normal)
+//        context?.move(to: line.start)
+//        context?.addLine(to: line.end)
+		let path: UIBezierPath = UIBezierPath.init()
+		path.lineWidth = line.brushSize
+		path.lineCapStyle = CGLineCap.round
+		path.lineJoinStyle = CGLineJoin.round
+		path.interpolatePoints(withHermite: [line.start, line.end])
+		context?.addPath(path.cgPath)
 
-        context?.move(to: line.start)
-        context?.addLine(to: line.end)
-        context?.strokePath()
+		context?.strokePath()
 
         drawView.image = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
@@ -481,7 +490,6 @@ class SwiftyJotController: UIViewController {
     }
 
     // MARK: - ViewController Overrides
-
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -496,6 +504,11 @@ class SwiftyJotController: UIViewController {
 
         let saveButton = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(save))
         navigationItem.rightBarButtonItem = saveButton
+
+		if config.hideBackButton {
+			navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Cancel", style: .done, target: self, action: #selector(clear))
+			navigationItem.hidesBackButton = true
+		}
     }
 
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
@@ -521,3 +534,49 @@ class SwiftyJotController: UIViewController {
     }
 }
 
+extension UIBezierPath {
+	func interpolatePoints(withHermite interpolationPoints: [CGPoint], alpha: CGFloat = 1.0/3.0) {
+		guard !interpolationPoints.isEmpty else { return }
+		self.move(to: interpolationPoints[0])
+
+		let n = interpolationPoints.count - 1
+
+		for index in 0..<n {
+			var currentPoint = interpolationPoints[index]
+			var nextIndex = (index + 1) % interpolationPoints.count
+			var prevIndex = index == 0 ? interpolationPoints.count - 1 : index - 1
+			var previousPoint = interpolationPoints[prevIndex]
+			var nextPoint = interpolationPoints[nextIndex]
+			let endPoint = nextPoint
+			var mx: CGFloat
+			var my: CGFloat
+
+			if index > 0 {
+				mx = (nextPoint.x - previousPoint.x) / 2.0
+				my = (nextPoint.y - previousPoint.y) / 2.0
+			} else {
+				mx = (nextPoint.x - currentPoint.x) / 2.0
+				my = (nextPoint.y - currentPoint.y) / 2.0
+			}
+
+			let controlPoint1 = CGPoint(x: currentPoint.x + mx * alpha, y: currentPoint.y + my * alpha)
+			currentPoint = interpolationPoints[nextIndex]
+			nextIndex = (nextIndex + 1) % interpolationPoints.count
+			prevIndex = index
+			previousPoint = interpolationPoints[prevIndex]
+			nextPoint = interpolationPoints[nextIndex]
+
+			if index < n - 1 {
+				mx = (nextPoint.x - previousPoint.x) / 2.0
+				my = (nextPoint.y - previousPoint.y) / 2.0
+			} else {
+				mx = (currentPoint.x - previousPoint.x) / 2.0
+				my = (currentPoint.y - previousPoint.y) / 2.0
+			}
+
+			let controlPoint2 = CGPoint(x: currentPoint.x - mx * alpha, y: currentPoint.y - my * alpha)
+
+			self.addCurve(to: endPoint, controlPoint1: controlPoint1, controlPoint2: controlPoint2)
+		}
+	}
+}
