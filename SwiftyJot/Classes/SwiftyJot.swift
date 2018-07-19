@@ -1,4 +1,3 @@
-
 //
 //  SwiftyJot.swift
 //  AnnotateImage
