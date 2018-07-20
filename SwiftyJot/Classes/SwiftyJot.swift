@@ -10,7 +10,7 @@ import UIKit
 public class SwiftyJot {
 
     public init() {
-        
+
     }
 
     public struct Config {
@@ -28,19 +28,15 @@ public class SwiftyJot {
         public var brushSize: CGFloat = 8
         public var showMenuButton = true
         public var showPaletteButton = true
-		public var senderName: String = ""
-		public var hideBackButton = false
     }
 
     public var config = Config()
-	public var delegate: SwiftyJotDelegate?
 
-	public func present(sourceImageView: UIImageView, presentingViewController presenter: UIViewController) {
+    public func present(sourceImageView: UIImageView, presentingViewController presenter: UIViewController) {
 
         let swiftyJotController = SwiftyJotController()
         swiftyJotController.config = config
         swiftyJotController.sourceImageView = sourceImageView
-		swiftyJotController.delegate = delegate
 
         if let navigationController = presenter.navigationController {
             navigationController.pushViewController(swiftyJotController, animated: true)
@@ -48,8 +44,4 @@ public class SwiftyJot {
             presenter.present(swiftyJotController, animated: true, completion: nil)
         }
     }
-}
-
-public protocol SwiftyJotDelegate: class {
-	func didSaveImage(sender: String, image: UIImage)
 }
