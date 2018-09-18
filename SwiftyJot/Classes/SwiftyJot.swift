@@ -13,6 +13,11 @@ public class SwiftyJot {
         
     }
 
+    convenience init(config: Config) {
+        self.init()
+        self.config = config
+    }
+
     public struct Config {
 
         public init() {
