@@ -142,7 +142,7 @@ class SwiftyJotController: UIViewController {
             if isBrushToolOpen {
                 toggleResizeBrushView()
             }
-            
+
             if paletteTool == nil {
                 paletteTool = PaletteTool(linkedButton: paletteButton, currentColor: color)
                 paletteTool.backgroundColor = .white

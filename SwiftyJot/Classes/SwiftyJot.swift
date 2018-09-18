@@ -10,7 +10,7 @@ import UIKit
 public class SwiftyJot {
 
     public init() {
-        
+
     }
 
     convenience init(config: Config) {
