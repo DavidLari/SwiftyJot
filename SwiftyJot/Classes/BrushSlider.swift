@@ -28,7 +28,7 @@ class BrushSlider: UIView {
         connector.frame = CGRect(x: frame.width - 30, y: frame.height - 2, width: 10, height: 8)
         connector.backgroundColor = linkedButton.backgroundColor
         addSubview(connector)
-        bringSubview(toFront: connector)
+        bringSubviewToFront(connector)
 
         let sliderFrame = CGRect(x: -55, y: 90, width: 160, height: 34)
         slider.frame = sliderFrame
@@ -40,14 +40,14 @@ class BrushSlider: UIView {
         slider.addTarget(self, action: #selector(valueChanged), for: .valueChanged)
 
         addSubview(slider)
-        bringSubview(toFront: slider)
+        bringSubviewToFront(slider)
 
         updateBrushView()
         self.color = color
         brushView.layer.borderWidth = 1
         brushView.layer.borderColor = UIColor.black.cgColor
         addSubview(brushView)
-        bringSubview(toFront: brushView)
+        bringSubviewToFront(brushView)
 
     }
 

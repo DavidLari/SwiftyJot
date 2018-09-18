@@ -61,7 +61,7 @@ class PaletteTool: UIView {
         slider.minimumValue = Float(min)
         slider.addTarget(self, action: #selector(valueChanged), for: .valueChanged)
         addSubview(slider)
-        bringSubview(toFront: slider)
+        bringSubviewToFront(slider)
    }
 
     convenience init(linkedButton: UIButton, currentColor: UIColor) {
@@ -82,7 +82,7 @@ class PaletteTool: UIView {
         connector.frame = CGRect(x: frame.width - 30, y: frame.height - 2, width: 10, height: 8)
         connector.backgroundColor = linkedButton.backgroundColor
         addSubview(connector)
-        bringSubview(toFront: connector)
+        bringSubviewToFront(connector)
 
         let y = 110
         let width = 160

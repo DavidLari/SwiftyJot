@@ -127,7 +127,7 @@ class SwiftyJotController: UIViewController {
             }
 
             view.addSubview(brushSlider)
-            view.bringSubview(toFront: brushSlider)
+            view.bringSubviewToFront(brushSlider)
         }
         imageView.isUserInteractionEnabled = isBrushToolOpen
     }
@@ -152,7 +152,7 @@ class SwiftyJotController: UIViewController {
             }
 
             view.addSubview(paletteTool)
-            view.bringSubview(toFront: paletteTool)
+            view.bringSubviewToFront(paletteTool)
         }
         imageView.isUserInteractionEnabled = isPaletteToolOpen
     }
@@ -414,8 +414,8 @@ class SwiftyJotController: UIViewController {
             NSLayoutConstraint.activate([
                 containerView.leftAnchor.constraint(equalTo: guide.leftAnchor),
                 containerView.rightAnchor.constraint(equalTo: guide.rightAnchor),
-                containerView.topAnchor.constraintEqualToSystemSpacingBelow(guide.topAnchor, multiplier: 1.0),
-                guide.bottomAnchor.constraintEqualToSystemSpacingBelow(containerView.bottomAnchor, multiplier: 1.0)
+                containerView.topAnchor.constraint(equalToSystemSpacingBelow: guide.topAnchor, multiplier: 1.0),
+                guide.bottomAnchor.constraint(equalToSystemSpacingBelow: containerView.bottomAnchor, multiplier: 1.0)
                 ])
 
         } else {
@@ -461,7 +461,7 @@ class SwiftyJotController: UIViewController {
             paletteButton.addTarget(self, action: #selector(togglePaletteTool), for: .touchUpInside)
             view.addSubview(paletteButton)
         }
-        view.bringSubview(toFront: menuButton)
+        view.bringSubviewToFront(menuButton)
     }
 
     fileprivate func moveMenuButtonsOnTransition(to size: CGSize) {
